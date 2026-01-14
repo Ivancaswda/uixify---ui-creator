@@ -33,6 +33,13 @@ export default function RootLayout({
 
 
     <html lang="en">
+    <head>
+        <script defer
+                data-website-id="db239019-3883-4e2f-9155-2a00e4a17e85"
+                data-domain="https://uixify-ai.vercel.app"
+                src="https://analitity-track.vercel.app/analytics.js">
+        </script>
+    </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
