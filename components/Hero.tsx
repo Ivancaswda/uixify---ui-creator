@@ -105,12 +105,12 @@ const Hero = () => {
 
             {/* Input Group */}
             <div className="w-full max-w-md flex flex-col gap-2">
-                <InputGroup className="flex flex-col gap-2">
+                <InputGroup className="flex bg-white flex-col gap-2">
                     <InputGroupTextarea
                         value={userInput}
                         onChange={(e) => setUserInput(e.target.value)}
                         placeholder="Введите промпт ui который вы хотите создать..."
-                        className="min-h-[80px] resize-none px-3 py-2 rounded-md border"
+                        className="min-h-[80px] bg-white resize-none px-3 py-2 rounded-md border"
                     />
                     <div className="flex flex-col sm:flex-row gap-2 items-center">
                         <Select value={device} onValueChange={(val) => setDevice(val)}>
