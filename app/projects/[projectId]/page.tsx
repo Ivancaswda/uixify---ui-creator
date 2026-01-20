@@ -184,54 +184,30 @@ const ProjectIdPage = () => {
     }
     console.log(apiKeyDialogOpen)
     return (
-        <div className='max-w-screen!'>
-            <div className=''>
+        <div className="flex flex-col h-screen overflow-hidden">
+            <ProjectHeader/>
 
-                <ProjectHeader/>
-                <Button
-                    variant="outline"
-                    size="icon" className='' style={{margin: "10px"}}
-                    onClick={() => setIsSidebarOpen(prev => !prev)}
-                >
-                    {isSidebarOpen ? <PanelLeftClose /> : <PanelLeftOpen />}
-                </Button>
-            </div>
+            <div className="flex flex-col sm:flex-row flex-1 overflow-hidden">
+                <SettingsSection
+                    setApiKeyDialogOpen={setApiKeyDialogOpen}
+                    isSidebarOpen={isSidebarOpen}
+                    takeScreenshot={() => canvasRef.current?.takeScreenshot()}
+                    screenDescription={screenConfig && screenConfig[0]?.screenDescription}
+                    project={project}
+                />
 
-
-
-            <div className="flex h-[calc(100vh-64px)] overflow-hidden">
-
-                <div
-
-                >
-                    <SettingsSection setApiKeyDialogOpen={setApiKeyDialogOpen} setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen}
-                        takeScreenshot={() => canvasRef.current?.takeScreenshot()}
-                        screenDescription={screenConfig && screenConfig[0]?.screenDescription}
-                        project={project}
-                    />
-                </div>
-
-
-                <div className="flex-1 transition-all duration-300 ease-in-out">
-                    {isGeneratingUI ? (
-                        <CanvasSkeleton />
-                    ) : (
-                        <Canvas setApiKeyDialogOpen={setApiKeyDialogOpen}
-                            ref={canvasRef}
-                            project={project}
-                            screenConfig={screenConfig}
-                            loading={loading}
-                        />
-                    )}
+                <div className="flex-1 overflow-auto transition-all duration-300 ease-in-out">
+                    {isGeneratingUI ? <CanvasSkeleton/> : <Canvas ref={canvasRef} project={project} screenConfig={screenConfig} />}
                 </div>
             </div>
+
             <ChangeApiKeyDialog
                 open={apiKeyDialogOpen}
                 projectId={projectId}
                 onClose={() => setApiKeyDialogOpen(false)}
                 onSuccess={() => {
-                    pendingAction?.()
-                    setPendingAction(null)
+                    pendingAction?.();
+                    setPendingAction(null);
                 }}
             />
         </div>

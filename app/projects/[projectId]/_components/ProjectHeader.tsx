@@ -31,19 +31,19 @@ const ProjectHeader = () => {
         }
     }
     return (
-        <div className="flex items-center justify-between p-4 shadow">
-            <Link href='/'>
-                <Image src='/logo.png' alt='lgoo' width={140} height={140}/>
+        <div className="flex flex-col sm:flex-row items-center justify-between p-3 sm:p-4 shadow bg-white">
+            <Link href="/">
+                <Image src="/logo.png" alt="logo" width={100} height={40} className="mx-auto sm:mx-0"/>
             </Link>
 
-            <ul className='flex gap-4 text-lg items-center '>
-                <li className='hover:text-primary transition text-sm cursor-pointer'>Главная страница</li>
-                <li className='hover:text-primary transition text-sm cursor-pointer'>Услуги</li>
+            <ul className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm sm:text-lg mt-2 sm:mt-0 items-center">
+                <li className="hover:text-primary transition cursor-pointer">Главная страница</li>
+                <li className="hover:text-primary transition cursor-pointer">Услуги</li>
             </ul>
-          <Button onClick={onSave}>
-              {loading ? <Loader2Icon className='animate-spin'/> : <SaveIcon/> }
-              {loading ? 'Подождите...' :"Сохранить"}
 
+            <Button onClick={onSave} className="mt-2 sm:mt-0 flex items-center gap-2 text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2">
+                {loading ? <Loader2Icon className="animate-spin w-4 h-4"/> : <SaveIcon className="w-4 h-4"/>}
+                {loading ? 'Подождите...' : 'Сохранить'}
             </Button>
         </div>
     )

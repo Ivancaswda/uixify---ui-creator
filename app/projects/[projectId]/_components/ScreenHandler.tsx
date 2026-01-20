@@ -147,12 +147,12 @@ html, body {
         }
     }
     return (
-        <div className='flex justify-between  w-full items-center'>
-            <div className='flex items-center gap-2'>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-2 sm:gap-4">
+                <div className="flex items-center gap-2 text-sm sm:text-base">
                 <GripVertical className="w-4 h-4" />
                 <h2>{screen?.screenName}</h2>
             </div>
-            <div >
+                <div className="flex flex-wrap gap-1 sm:gap-2 mt-1 sm:mt-0">
 
                 <Dialog>
                     <DialogTrigger>
@@ -200,23 +200,17 @@ html, body {
                 </Button>
                 <Popover>
                     <PopoverTrigger>
-                        <Button variant='ghost'>
-                            {loading ? <LoaderOne/> : <SparkleIcon/>}
-
+                        <Button variant="ghost" size="sm">
+                            {loading ? <Loader2Icon className="animate-spin w-4 h-4"/> : <SparkleIcon className="w-4 h-4"/>}
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent>
-                        <div>
-                            <Textarea onChange={(e) => setEditUserInput(e.target.value)} value={editUserInput} placeholder='Какие изменения вы бы хотели сделать?'/>
-                            <Button disabled={loading} className='mt-4'
-                                    onClick={() => editScreen()}>
-
-                                {loading ? <Loader2Icon className='animate-spin'/> : <SparkleIcon/>}
-                                {loading ? 'Генерация...' : 'Редактировать'}
-                            </Button>
-                        </div>
+                    <PopoverContent className="w-[90vw] sm:w-[300px]">
+                        <Textarea value={editUserInput} onChange={(e) => setEditUserInput(e.target.value)} placeholder="Какие изменения вы хотите?"/>
+                        <Button disabled={loading} className="mt-2 w-full sm:w-auto" onClick={() => editScreen()}>
+                            {loading ? <Loader2Icon className="animate-spin w-4 h-4"/> : <SparkleIcon className="w-4 h-4"/>}
+                            {loading ? 'Генерация...' : 'Редактировать'}
+                        </Button>
                     </PopoverContent>
-
                 </Popover>
 
 

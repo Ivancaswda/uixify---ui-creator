@@ -42,13 +42,13 @@ ${screen.code}
 </html>`;
 
     return (
-        <section className="w-screen h-screen  flex flex-col bg-gray-200">
-            {/* Header */}
+        <section className="w-screen h-screen flex flex-col bg-gray-200">
             <div
-                className="flex items-center px-4 text-xs text-gray-600 bg-white border-b shrink-0"
-                style={{ height: HEADER_HEIGHT }}
+                className="flex items-center px-3 sm:px-4 text-xs sm:text-sm text-gray-600 bg-white border-b shrink-0"
+                style={{ height: 48 }}
             >
-                <ScreenHandler setApiKeyDialogOpen={setApiKeyDialogOpen}
+                <ScreenHandler
+                    setApiKeyDialogOpen={setApiKeyDialogOpen}
                     projectId={project?.projectId}
                     iframeRef={iframeRef}
                     theme={theme}
@@ -56,11 +56,10 @@ ${screen.code}
                 />
             </div>
 
-            {/* Content */}
-            <div className="flex-1 overflow-hidden  bg-gray-100">
+            <div className="flex-1 overflow-hidden bg-gray-100">
                 <iframe
                     ref={iframeRef}
-                    className="w-full border border-gray-500 h-full border-0"
+                    className="w-full h-full border-0"
                     sandbox="allow-same-origin allow-scripts"
                     srcDoc={html}
                 />

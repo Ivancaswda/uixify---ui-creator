@@ -219,110 +219,48 @@ const SettingsSection = ({project, setApiKeyDialogOpen, screenDescription, takeS
         }
     }
     return (
-        <div  className={`
-            
-            transition-all duration-300 ease-in-out
-            ${isSidebarOpen ? "w-[520px] opacity-100" : "w-0 opacity-0"}
-            overflow-hidden p-4 h-[90vh]
-        `} >
-            <div className=' flex items-center gap-6'>
-                <h1 className='font-medium text-lg flex items-center gap-4'>
-                    <SettingsIcon/>
-                    Настройки
-                </h1>
+        <div className={`transition-all duration-300 ease-in-out ${isSidebarOpen ? "w-full sm:w-[520px] opacity-100" : "w-0 opacity-0"} overflow-auto p-4 h-[90vh]`}>
+            <h1 className="font-medium text-lg flex items-center gap-2 sm:gap-4">
+                <SettingsIcon className="w-4 h-4 sm:w-5 sm:h-5"/> Настройки
+            </h1>
 
+            <div className="mt-4">
+                <label className="text-sm">Название проекта</label>
+                <Input value={projectName} onChange={(e) => setProjectName(e.target.value)} placeholder="Введите название проекта" className="text-sm"/>
+            </div>
 
-            </div>
-            <div className='mt-6'>
-                <label className='text-sm mb-1'>Название проекта</label>
-                <Input value={projectName} onChange={(event) =>  {
-                    setProjectName(event.target.value);
-                    setSettings((prev:any) => ({
-                        ...prev,
-                        projectName: projectName
-                    }))
-                }} placeholder='Введите название проекта'/>
-            </div>
-            <div className='mt-5'>
-                <label className='text-sm mb-1'>Сгенерировать новые экраны</label>
-                <Textarea value={userNewScreenInput} onChange={(event) =>  setUserNewScreenInput(event.target.value)} placeholder='Введите промпт чтобы сгенерировать экран при помощи ИИ'/>
-                <Button onClick={generateNewScreen} size='sm' disabled={loading} className='mt-2 '>
-                    {loading ? <Loader2Icon className='animate-spin'/> :  <SparkleIcon/>}
+            <div className="mt-4">
+                <label className="text-sm">Сгенерировать новые экраны</label>
+                <Textarea value={userNewScreenInput} onChange={(e) => setUserNewScreenInput(e.target.value)} placeholder="Введите промпт" className="text-sm"/>
+                <Button onClick={generateNewScreen} size="sm" className="mt-2 w-full sm:w-auto">
+                    {loading ? <Loader2Icon className="animate-spin w-4 h-4"/> : <SparkleIcon className="w-4 h-4"/>}
                     {loading ? 'Генерация...' : 'Сгенерировать UI'}
-
                 </Button>
             </div>
-            <div className='mt-5'>
-                <h2 className='text-sm mb-1'>Темы</h2>
-                <div className='h-[200px] overflow-auto'>
-                    <div>
-                        {Object.keys(THEMES).map((theme) => (
-                            <div
-                                key={theme}
-                                className={`p-3 border rounded-xl mb-2 cursor-pointer transition
-      ${theme === selectedTheme && "border-primary bg-primary/20"}
-    `}
-                                onClick={() => onThemeSelect(theme)}
-                            >
-                                <h2 className="text-sm font-medium">{theme}</h2>
 
-                                <div className="flex gap-2 mt-2">
-                                    <div className="h-4 w-4 rounded-full" style={{ background: THEMES[theme].primary }} />
-                                    <div className="h-4 w-4 rounded-full" style={{ background: THEMES[theme].secondary }} />
-                                    <div className="h-4 w-4 rounded-full" style={{ background: THEMES[theme].accent }} />
-                                    <div className="h-4 w-4 rounded-full" style={{ background: THEMES[theme].background }} />
-                                    <div
-                                        className="h-4 w-4 rounded-full"
-                                        style={{
-                                            background: `linear-gradient(135deg,
-            ${THEMES[theme].background},
-            ${THEMES[theme].primary},
-            ${THEMES[theme].accent}
-          )`,
-                                        }}
-                                    />
-                                </div>
+            <div className="mt-4">
+                <h2 className="text-sm mb-1">Темы</h2>
+                <div className="flex flex-col gap-2 max-h-[200px] overflow-auto">
+                    {Object.keys(THEMES).map((theme) => (
+                        <div key={theme} className={`p-2 border rounded-lg cursor-pointer ${theme === selectedTheme ? "border-primary bg-primary/20" : ""}`} onClick={() => onThemeSelect(theme)}>
+                            <h2 className="text-sm font-medium">{theme}</h2>
+                            <div className="flex gap-1 mt-1">
+                                <div className="h-3 w-3 rounded-full" style={{background: THEMES[theme].primary}}/>
+                                <div className="h-3 w-3 rounded-full" style={{background: THEMES[theme].secondary}}/>
+                                <div className="h-3 w-3 rounded-full" style={{background: THEMES[theme].accent}}/>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            <div className='mt-5'>
-                <h2 className='text-sm mb-1'>Дополнительно</h2>
-                <div className='flex gap-3'>
-                    <Button onClick={takeScreenshot} variant='outline' size='sm' className='mt-2 '>
-                        <Camera/>
-                        Сделать скриншот
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="mt-2"
-                        onClick={handleShare}
-                    >
-                        <Share />
-                        Поделиться
-                    </Button>
-
-                </div>
-                {project?.screenShot && project?.screenShot.length > 0 && (
-                    <div className="bg-white   p-4 rounded shadow space-y-2">
-                        <h3 className="font-medium">Скачать скриншоты</h3>
-                        <div className='flex gap-4 items-center flex-wrap'>
-                            {project?.screenShot.map((s) => (
-                                <Button
-                                    key={s.screenId}
-                                    className="px-3 py-1 "
-                                    onClick={() => downloadScreenshot(s)}
-                                >
-                                    {s.screenId}
-                                </Button>
-                            ))}
-                        </div>
-
-                    </div>
-                )}
+            <div className="mt-4 flex flex-col sm:flex-row gap-2">
+                <Button onClick={takeScreenshot} variant="outline" size="sm" className="w-full sm:w-auto flex items-center gap-1">
+                    <Camera className="w-4 h-4"/> Сделать скриншот
+                </Button>
+                <Button onClick={handleShare} variant="outline" size="sm" className="w-full sm:w-auto flex items-center gap-1">
+                    <Share className="w-4 h-4"/> Поделиться
+                </Button>
             </div>
         </div>
     )

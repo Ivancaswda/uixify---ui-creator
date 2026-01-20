@@ -37,18 +37,23 @@ export const ChangeApiKeyDialog = ({
 
     return (
         <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent>
+            <DialogContent className="w-[90%] sm:w-[400px] p-4 sm:p-6 rounded-lg">
                 <DialogHeader>
-                    <DialogTitle>Изменить Gemini API Key</DialogTitle>
+                    <DialogTitle className="text-sm sm:text-base">Изменить Gemini API Key</DialogTitle>
                 </DialogHeader>
 
                 <Input
-                    placeholder="AIza..."
+                    className="mt-2 text-sm sm:text-base"
+                    placeholder="Введите ваш API ключ"
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
                 />
 
-                <Button onClick={saveKey} disabled={loading}>
+                <Button
+                    className="mt-4 w-full sm:w-auto"
+                    onClick={saveKey}
+                    disabled={loading}
+                >
                     {loading ? "Сохранение..." : "Сохранить"}
                 </Button>
             </DialogContent>

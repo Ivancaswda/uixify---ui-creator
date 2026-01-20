@@ -44,17 +44,20 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
       <Toaster/>
-      <AuthProvider>
-          <SettingProvider>
-              <RefreshDataProvider>
-                  <GeminiApiKeyProvider>
-                      <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!} >
-                          {children}
-                      </GoogleOAuthProvider>
-                  </GeminiApiKeyProvider>
-              </RefreshDataProvider>
-          </SettingProvider>
-      </AuthProvider>
+
+
+          <AuthProvider>
+              <SettingProvider>
+                  <RefreshDataProvider>
+                      <GeminiApiKeyProvider>
+                          <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!} >
+                              {children}
+                          </GoogleOAuthProvider>
+                      </GeminiApiKeyProvider>
+                  </RefreshDataProvider>
+              </SettingProvider>
+          </AuthProvider>
+
       </body>
     </html>
 

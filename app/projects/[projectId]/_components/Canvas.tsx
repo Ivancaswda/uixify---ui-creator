@@ -64,43 +64,41 @@ const Canvas = forwardRef(({ project, screenConfig, setApiKeyDialogOpen }: any, 
     console.log(screenshots)
     const [closeDownload, setCloseDownload] = useState<boolean>(false)
     return (
-        <div className="w-full h-screen overflow-y-auto bg-gray-300">
-            <div className="flex flex-col gap-24">
+        <div className="w-full h-screen overflow-y-auto bg-gray-300 p-2 sm:p-6">
+            <div className="flex flex-col gap-12 sm:gap-24">
                 {screenConfig?.map((screen: any) =>
                     screen.code ? (
-                        <ScreenFrame setApiKeyDialogOpen={setApiKeyDialogOpen}
+                        <ScreenFrame
                             key={screen.screenId}
                             screen={screen}
                             project={project}
-                            registerIframe={(el) => {
-                                iframeMapRef.current[screen.screenId] = el;
-                            }}
+                            setApiKeyDialogOpen={setApiKeyDialogOpen}
+                            registerIframe={(el) => { iframeMapRef.current[screen.screenId] = el; }}
                         />
                     ) : null
                 )}
             </div>
-            { screenshots.length  > 0 && (
-                <div className="fixed bottom-4 right-4 bg-white p-4 rounded shadow space-y-2">
-                    <div className=' flex items-center justify-between'>
-                        <h3 className="font-medium">Скачать скриншоты</h3>
-                        <XIcon className='text-muted-foreground cursor-pointer' onClick={() => setScreenshots([])}/>
+
+            {screenshots.length > 0 && (
+                <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 sm:right-4 sm:left-auto bg-white p-4 rounded-lg shadow space-y-2 w-[90%] sm:w-auto">
+                    <div className="flex justify-between items-center">
+                        <h3 className="font-medium text-sm sm:text-base">Скачать скриншоты</h3>
+                        <XIcon className="text-muted-foreground cursor-pointer" onClick={() => setScreenshots([])} />
                     </div>
 
-                    <div className='flex gap-4 items-center '>
+                    <div className="flex flex-wrap gap-2 sm:gap-4 items-center mt-2">
                         {screenshots.map((s) => (
                             <Button
                                 key={s.screenId}
-                                className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                className="px-2 py-1 sm:px-3 sm:py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs sm:text-sm"
                                 onClick={() => downloadScreenshot(s)}
                             >
                                 {s.screenId}
                             </Button>
                         ))}
                     </div>
-
                 </div>
             )}
-
         </div>
     );
 });
